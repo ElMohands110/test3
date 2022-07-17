@@ -1,17 +1,21 @@
 let list = document.querySelectorAll('.single_color')
 
-// if (window.localStorage.color) {
-//     document.body.style.color = window.localStorage.color
-// }
-
+if (window.localStorage.color) {
+    document.body.style.backgroundColor = window.localStorage.color
+    list.forEach((el) => {
+        el.classList.remove("active")
+    })
+    document.querySelector(`[data-color="${window.localStorage.color}"]`).classList.add("active")
+}
 
 list.forEach((li) => {
-    li.addEventListener("click", function () {
-        list.forEach((e) => {
-            e.classList.remove("active")
+    li.addEventListener("click", (e) => {
+        list.forEach((el) => {
+            el.classList.remove("active")
         })
-        li.classList.add("active")
-        window.localStorage.setItem("color", li.getAttribute("data-color"))
+        e.currentTarget.classList.add("active")
+        window.localStorage.setItem("color", e.currentTarget.dataset.color)
+        document.body.style.backgroundColor = e.currentTarget.dataset.color
     })
 
 })
